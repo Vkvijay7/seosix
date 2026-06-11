@@ -1,0 +1,208 @@
+/* =========================================
+   LIGHT / DARK MODE CARD COLORS
+   ========================================= */
+body.dark-mode .example-2 .icon-content a:hover {
+  color: #ffffff !important;}
+
+/* =========================================
+   ABOUT US BUTTONS (Brave Earwig)
+   ========================================= */
+.about-socials-container {
+  margin-top: 20px;}
+
+.example-2 {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;}
+
+.example-2 .icon-content {
+  margin: 0 10px;
+  position: relative;}
+
+.example-2 .icon-content .tooltip {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 5px;
+  opacity: 0;
+  visibility: hidden;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  white-space: nowrap;}
+
+.example-2 .icon-content:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  top: -50px;}
+
+.example-2 .icon-content a {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: #4d4d4d;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);}
+
+.example-2 .icon-content a i,
+.example-2 .icon-content a svg {
+  position: relative;
+  z-index: 1;
+  width: 24px;
+  height: 24px;}
+
+.example-2 .icon-content a:hover {
+  color: white;}
+
+.example-2 .icon-content a .filled {
+  position: absolute;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background-color: #000;
+  transition: all 0.3s ease-in-out;
+  z-index: 0;}
+
+.example-2 .icon-content a:hover .filled {
+  height: 100%;}
+
+.example-2 .icon-content a[data-social="linkedin"] .filled,
+.example-2 .icon-content a[data-social="linkedin"]~.tooltip {
+  background-color: #0274b3;}
+
+.example-2 .icon-content a[data-social="github"] .filled,
+.example-2 .icon-content a[data-social="github"]~.tooltip {
+  background-color: #24262a;}
+
+.example-2 .icon-content a[data-social="instagram"] .filled,
+.example-2 .icon-content a[data-social="instagram"]~.tooltip {
+  background-color: #bc2a8d;}
+
+.example-2 .icon-content a[data-social="youtube"] .filled,
+.example-2 .icon-content a[data-social="youtube"]~.tooltip {
+  background-color: #ff0000;}
+
+.fg-socials-new .example-2 .icon-content a {
+  border: 1px solid rgba(222, 26, 26, 0.2);
+  width: 36px;
+  height: 36px;}
+
+.fg-socials-new .example-2 .icon-content a svg {
+  width: 16px;
+  height: 16px;}
+
+/* Footer icons */
+body.dark-mode .example-2 .icon-content a {
+  background-color: #1C1C1C !important;
+  color: #A5D7E8 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);}
+
+body.dark-mode .example-2 .icon-content a:hover {
+  color: #ffffff !important;}
+
+/* ANIMATED BACKGROUND */
+.tech-stack-swiper-section .circles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;}
+
+.tech-stack-swiper-section .circles li {
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-red);
+  background-image: linear-gradient(225deg, var(--color-red) 0%, #784ba0 50%, #2b86c5 100%);
+  animation: tech-animate 25s linear infinite;
+  bottom: -150px;
+  opacity: 0.15;
+  border-radius: 50%;}
+
+body.dark-mode .tech-stack-swiper-section .circles li {
+  background-image: linear-gradient(225deg, #576CBC 0%, #19376D 50%, #0B2447 100%);
+  opacity: 0.4;}
+
+.tech-stack-swiper-section .circles li:nth-child(1) {
+  left: 25%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;}
+
+.tech-stack-swiper-section .circles li:nth-child(2) {
+  left: 10%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 2s;
+  animation-duration: 12s;}
+
+.tech-stack-swiper-section .circles li:nth-child(3) {
+  left: 70%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 4s;}
+
+.tech-stack-swiper-section .circles li:nth-child(4) {
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 0s;
+  animation-duration: 18s;}
+
+.tech-stack-swiper-section .circles li:nth-child(5) {
+  left: 65%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 0s;}
+
+.tech-stack-swiper-section .circles li:nth-child(6) {
+  left: 75%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 3s;}
+
+.tech-stack-swiper-section .circles li:nth-child(7) {
+  left: 35%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 7s;}
+
+.tech-stack-swiper-section .circles li:nth-child(8) {
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 15s;
+  animation-duration: 45s;}
+
+.tech-stack-swiper-section .circles li:nth-child(9) {
+  left: 20%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 2s;
+  animation-duration: 35s;}
+
+.tech-stack-swiper-section .circles li:nth-child(10) {
+  left: 85%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0s;
+  animation-duration: 11s;}

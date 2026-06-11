@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&display=swap');
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'thunder';
+  src: url('./assets/fonts/thunder.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'customFont';
+  src: url('./assets/fonts/customFont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'oldSchoolGrotesk';
+  src: url('./assets/fonts/oldSchoolGrotesk.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-thunder: 'thunder', sans-serif;
+  --font-custom: 'Alegreya Sans SC', sans-serif;
+  --font-school: 'oldSchoolGrotesk', sans-serif;
+  
+  --color-background: #1B1B1B;
+  --color-muted: #242424;
+  --color-muted2: #222222;
+  --color-muted4: #333333;
+}
+
+/* Custom styles */
+html, body {
+  scroll-behavior: smooth;
+  background-color: var(--color-background);
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: clip;
+  font-family: var(--font-custom);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-muted2);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted4);
+}
+
+/* Text reveal animations and styles */
+.fc {
+  display: flex;
+  align-items: center;
+}
+.fcc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ac {
+  justify-content: center;
+}
+.shadow-glass {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Infinite marquee track animation */
+@keyframes marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-33.3333%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 22s linear infinite;
+}
