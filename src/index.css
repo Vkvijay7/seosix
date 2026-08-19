@@ -1,9 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&display=swap');
 @import "tailwindcss";
 
 @font-face {
   font-family: 'thunder';
-  src: url('./assets/fonts/thunder.woff2') format('woff2');
+  src: url('/fonts/thunder.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -11,7 +10,7 @@
 
 @font-face {
   font-family: 'customFont';
-  src: url('./assets/fonts/customFont.woff') format('woff');
+  src: url('/fonts/customFont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -19,7 +18,7 @@
 
 @font-face {
   font-family: 'oldSchoolGrotesk';
-  src: url('./assets/fonts/oldSchoolGrotesk.woff2') format('woff2');
+  src: url('/fonts/oldSchoolGrotesk.woff2') format('woff2');
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -36,9 +35,44 @@
   --color-muted4: #333333;
 }
 
-/* Custom styles */
+:root {
+  --curve-height: 120px;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --curve-height: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --curve-height: 50px;
+  }
+}
+
+.curved-section {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  margin-top: calc(-1 * var(--curve-height));
+  position: relative;
+  z-index: 2;
+  background-clip: padding-box;
+  transition: border-top-left-radius 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+              border-top-right-radius 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@media (min-width: 768px) {
+  .is-scrolling .curved-section {
+    border-top-left-radius: 50% var(--curve-height);
+    border-top-right-radius: 50% var(--curve-height);
+    transition: border-top-left-radius 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                border-top-right-radius 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+}
+
 html, body {
-  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
   background-color: var(--color-background);
   color: #ffffff;
   margin: 0;
@@ -49,6 +83,10 @@ html, body {
   font-family: var(--font-custom);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.will-change-transform {
+  will-change: transform;
 }
 
 #root {
@@ -105,4 +143,13 @@ html, body {
   display: flex;
   width: max-content;
   animation: marquee 22s linear infinite;
+}
+
+/* Hide scrollbars for cleaner horizontal tabs */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }

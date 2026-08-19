@@ -4,6 +4,7 @@ import StaggeredMenu from './StaggeredMenu';
 
 const navLinks = [
   { label: 'Home', href: '#home' },
+  { label: 'Templates', href: '#templates' },
   { label: 'Services', href: '#services' },
   { label: 'Creation', href: '#creation' },
   { label: 'Pricing', href: '#pricing' },
@@ -17,17 +18,17 @@ const socialItems = [
   { label: 'Twitter', link: 'https://twitter.com' }
 ];
 
-export default function Navbar() {
+export default function Navbar({ activeHash = '#home' }) {
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center w-full pointer-events-none">
+    <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center w-full pointer-events-none" aria-label="Main Navigation">
       {/* Desktop: PillNav */}
-      <div className="hidden md:flex justify-center w-full pt-4 pointer-events-none">
+      <div className="flex justify-center w-full pt-4 pointer-events-none">
         <div className="pointer-events-auto">
           <PillNav
-            logo="/images/sedsix_logo.jpg"
-            logoAlt="SED SIX Logo"
+            logo="/images/seosix_logo.jpg?v=1"
+            logoAlt="SEOSIX Logo"
             items={navLinks}
-            activeHref="#home"
+            activeHref={activeHash}
             baseColor="#FFF8E7"
             pillColor="#DC143C"
             hoveredPillTextColor="#DC143C"
@@ -40,15 +41,15 @@ export default function Navbar() {
 
       {/* Mobile: StaggeredMenu */}
       <div className="md:hidden w-full h-screen pointer-events-none" style={{ position: 'fixed', top: 0, left: 0 }}>
-        <div className="pointer-events-auto w-full h-full">
+        <div className="pointer-events-none w-full h-full">
           <StaggeredMenu
             position="right"
             items={navLinks.map(l => ({ label: l.label, link: l.href, ariaLabel: `Go to ${l.label}` }))}
             socialItems={socialItems}
             displaySocials={true}
             displayItemNumbering={true}
-            logoUrl="/images/sedsix_logo.jpg"
-            logoAlt="SED SIX Logo"
+            logoUrl="/images/seosix_logo.jpg?v=1"
+            logoAlt="SEOSIX Logo"
             menuButtonColor="#FFF8E7"
             openMenuButtonColor="#1B1B1B"
             changeMenuColorOnOpen={true}
@@ -59,6 +60,6 @@ export default function Navbar() {
           />
         </div>
       </div>
-    </div>
+    </nav>
   );
 }

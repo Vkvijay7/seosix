@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight, Code, Smartphone, Film, Paintbrush, TrendingUp, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -47,36 +47,6 @@ const techCards = [
   { name: "Flutter", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg" }
 ];
 
-const processSteps = [
-  {
-    num: "01",
-    label: "STRATEGY",
-    title: "Discover & Strategize",
-    desc: "We analyze your requirements, target audience, and goals to chart a roadmap.",
-    img: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=600&auto=format&fit=crop"
-  },
-  {
-    num: "02",
-    label: "DESIGN",
-    title: "UI/UX Prototyping",
-    desc: "We construct high-fidelity wireframes and designs to visually narrate your identity.",
-    img: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=600&auto=format&fit=crop"
-  },
-  {
-    num: "03",
-    label: "DEVELOPMENT",
-    title: "Development Sync",
-    desc: "Our engineers transform designs into pixel-perfect code and integrations.",
-    img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop"
-  },
-  {
-    num: "04",
-    label: "LAUNCH",
-    title: "QA & Launch",
-    desc: "We conduct quality analysis to ensure a seamless global deployment.",
-    img: "https://images.unsplash.com/photo-1517976487492-5750f3195933?q=80&w=600&auto=format&fit=crop"
-  }
-];
 
 const marqueeServices = [
   { name: "Web Development", icon: Code },
@@ -110,36 +80,10 @@ const fadeUpVariants = {
 };
 
 export default function About() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1000);
-
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const handleDragEnd = (event, info) => {
-    const swipeThreshold = 40; // pixels
-    if (info.offset.x < -swipeThreshold && activeIndex < processSteps.length - 1) {
-      setActiveIndex(prev => prev + 1);
-    } else if (info.offset.x > swipeThreshold && activeIndex > 0) {
-      setActiveIndex(prev => prev - 1);
-    }
-  };
-
-  const prevSlide = () => {
-    if (activeIndex > 0) setActiveIndex(activeIndex - 1);
-  };
-
-  const nextSlide = () => {
-    if (activeIndex < processSteps.length - 1) setActiveIndex(activeIndex + 1);
-  };
-
   return (
     <section 
       id="about" 
-      className="relative flex flex-col justify-center items-center bg-black py-24 md:py-32 px-6 md:px-12 select-none overflow-hidden min-h-screen"
+      className="curved-section relative flex flex-col justify-center items-center bg-[#FFF8E7] py-24 md:py-32 px-6 md:px-12 select-none overflow-hidden min-h-screen"
     >
       {/* CSS Styles injection for custom animations, 3D carousel, and tooltips */}
       <style>{`
@@ -197,9 +141,19 @@ export default function About() {
         }
         @media (max-width: 768px) {
           .ts-3d-scene { font-size: 10px; }
+          .ts-card-info {
+            color: #ea5358 !important; /* Always show text on mobile/tablet */
+            padding: 8px 6px !important; /* Reduce padding on mobile */
+          }
+          .ts-3d-card .padding-icon {
+            padding: 6px !important;
+          }
+          .ts-3d-card .title {
+            margin-top: 4px !important;
+          }
         }
         @media (max-width: 480px) {
-          .ts-3d-scene { font-size: 7.5px; }
+          .ts-3d-scene { font-size: 9px; }
         }
 
         .ts-3d-a3d {
@@ -282,10 +236,11 @@ export default function About() {
         .ts-3d-card .title {
           font-weight: bold;
           letter-spacing: .1em;
-          font-size: 0.95rem;
+          font-size: 0.95em;
           margin-top: 10px;
           text-align: center;
           width: 100%;
+          word-break: break-word;
         }
 
         /* Hover states */
@@ -303,7 +258,7 @@ export default function About() {
 
         .ts-3d-card .padding-icon {
           width: 100%;
-          height: 100%;
+          height: 60%;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -502,115 +457,7 @@ export default function About() {
           }
         }
 
-        /* Process Section 3D Cinematic Style */
-        .process-3d-section {
-          width: 100%;
-          max-width: 1100px;
-          margin: 60px auto 80px auto;
-          position: relative;
-          z-index: 10;
-          overflow: visible;
-        }
 
-        .process-glow {
-          position: absolute;
-          width: 450px;
-          height: 450px;
-          background: radial-gradient(circle, rgba(220, 20, 60, 0.15) 0%, rgba(220, 20, 60, 0) 70%);
-          top: 55%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          filter: blur(40px);
-          pointer-events: none;
-          z-index: 1;
-        }
-
-        .process-3d-viewport {
-          position: relative;
-          width: 100%;
-          height: 470px;
-          perspective: 1200px;
-          transform-style: preserve-3d;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin-top: 30px;
-          z-index: 5;
-        }
-
-        @media (min-width: 640px) {
-          .process-3d-viewport {
-            height: 520px;
-          }
-        }
-
-        .process-3d-card {
-          position: absolute;
-          width: 280px;
-          height: 380px;
-          border-radius: 2rem;
-          overflow: hidden;
-          background: #111111;
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
-          transform-style: preserve-3d;
-          backface-visibility: hidden;
-          will-change: transform, opacity;
-          cursor: grab;
-        }
-
-        @media (min-width: 640px) {
-          .process-3d-card {
-            width: 325px;
-            height: 440px;
-          }
-        }
-
-        .process-3d-card-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.85) 100%);
-          z-index: 2;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          padding: 24px;
-        }
-
-        @media (min-width: 640px) {
-          .process-3d-card-overlay {
-            padding: 32px;
-          }
-        }
-
-        .process-3d-card-img {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          opacity: 0.65;
-          transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-          z-index: 1;
-        }
-
-        .process-3d-card:hover .process-3d-card-img {
-          transform: scale(1.08);
-        }
-
-        .process-3d-badge {
-          align-self: flex-start;
-          color: #DC143C;
-          padding: 6px 14px;
-          border-radius: 9999px;
-          font-size: 0.65rem;
-          font-weight: 800;
-          letter-spacing: 0.15em;
-          background: #ffffff;
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-          z-index: 3;
-        }
 
         /* Services Infinite Marquee Styles */
         .about-services-marquee {
@@ -646,7 +493,7 @@ export default function About() {
           align-items: center;
           gap: 12px;
           padding: 0 35px;
-          color: #ffffff;
+          color: #000000;
           font-weight: 800;
           letter-spacing: 0.12em;
           font-size: 1.05rem;
@@ -674,17 +521,17 @@ export default function About() {
         >
           About Us
         </motion.span>
-        <motion.h1 
+        <motion.h2 
           variants={fadeUpVariants}
-          className="font-school font-black text-[15vw] sm:text-[13.5vw] leading-[0.8] tracking-tighter uppercase select-none mb-6 text-white"
+          className="font-school font-black text-[15vw] sm:text-[13.5vw] leading-[0.8] tracking-tighter uppercase select-none mb-6 text-black"
         >
           SEO<span className="text-[#DC143C]">SIX</span>
-        </motion.h1>
+        </motion.h2>
         <motion.p 
           variants={fadeUpVariants}
-          className="text-neutral-400 font-semibold max-w-xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed mb-8"
+          className="text-neutral-800 font-semibold max-w-xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed mb-8"
         >
-          We are serving global brands, startups, and agencies with reliable engineering, high-end web layouts, and cinematic digital creations.
+          We provide premier web developer near me solutions, custom mobile app development, and technical SEO optimization in Dindigul, Chennai, Coimbatore, and globally.
         </motion.p>
         
         {/* Hire Us CTA Button */}
@@ -695,7 +542,7 @@ export default function About() {
           rel="noopener noreferrer"
           className="bg-[#DC143C] hover:bg-[#b01030] text-white font-extrabold uppercase tracking-wider px-8 py-4 rounded-full transition-all duration-300 shadow-[0_10px_20px_rgba(220,20,60,0.25)] hover:shadow-[0_15px_30px_rgba(220,20,60,0.45)] hover:scale-105 cursor-pointer"
         >
-          HIRE US TO BUILD UR DREAM WEBSITE
+          Work With Us to Build Your Dream Platform
         </motion.a>
       </motion.div>
 
@@ -714,127 +561,7 @@ export default function About() {
         </div>
       </div>
 
-      {/* Our Process Section - 3D Cinematic Physics-Based Carousel */}
-      <div className="process-3d-section select-none w-full">
-        <div className="process-glow" />
-        
-        {/* Title Header */}
-        <div className="z-10 mb-8 px-4">
-          <span className="text-[#DC143C] font-semibold tracking-wider text-xs sm:text-sm uppercase block mb-2">
-            How We Work
-          </span>
-          <h2 className="font-school font-black text-5xl sm:text-6xl md:text-7xl uppercase leading-[0.9] tracking-tighter text-white">
-            OUR <span className="text-[#DC143C]">PROCESS</span>
-          </h2>
-        </div>
 
-        {/* 3D Curved Physics Viewport */}
-        <div className="process-3d-viewport relative">
-          
-          {/* Drag Listener Overlay */}
-          <motion.div 
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            onDragEnd={handleDragEnd}
-            className="absolute inset-0 z-30 cursor-grab active:cursor-grabbing"
-            style={{ touchAction: "none" }}
-          />
-
-          {/* Floating Left Arrow Button */}
-          <button 
-            onClick={prevSlide}
-            disabled={activeIndex === 0}
-            aria-label="Previous slide"
-            className="absolute left-2 sm:left-4 z-[45] w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-neutral-900/80 border border-white/10 flex justify-center items-center text-white disabled:opacity-20 disabled:cursor-not-allowed hover:bg-neutral-800 hover:border-white/20 transition cursor-pointer shadow-lg"
-          >
-            <ChevronLeft size={20} />
-          </button>
-
-          {/* Floating Right Arrow Button */}
-          <button 
-            onClick={nextSlide}
-            disabled={activeIndex === processSteps.length - 1}
-            aria-label="Next slide"
-            className="absolute right-2 sm:right-4 z-[45] w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-neutral-900/80 border border-white/10 flex justify-center items-center text-white disabled:opacity-20 disabled:cursor-not-allowed hover:bg-neutral-800 hover:border-white/20 transition cursor-pointer shadow-lg"
-          >
-            <ChevronRight size={20} />
-          </button>
-
-          {processSteps.map((step, idx) => {
-            const offset = idx - activeIndex;
-            const cardSpacing = windowWidth < 640 ? 210 : 290;
-            const xVal = offset * cardSpacing;
-            const zVal = Math.abs(offset) * -150;
-            const rotateYVal = offset * -25;
-            const scaleVal = 1 - Math.abs(offset) * 0.12;
-            const opacityVal = 1 - Math.abs(offset) * 0.45;
-            const zIndexVal = 10 - Math.abs(offset);
-
-            return (
-              <motion.div
-                key={idx}
-                className="process-3d-card"
-                animate={{
-                  x: xVal,
-                  z: zVal,
-                  rotateY: rotateYVal,
-                  scale: scaleVal,
-                  opacity: opacityVal,
-                  zIndex: zIndexVal
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 260,
-                  damping: 26
-                }}
-              >
-                {/* Background Image */}
-                <img 
-                  src={step.img} 
-                  alt={step.title} 
-                  className="process-3d-card-img" 
-                  draggable="false"
-                />
-
-                {/* Dark Overlay Gradient and Card Content */}
-                <div className="process-3d-card-overlay">
-                  {/* Top Badge */}
-                  <div className="process-3d-badge">
-                    <span>{step.num}</span>
-                    <span className="opacity-40 mx-1.5">/</span>
-                    <span>{step.label}</span>
-                  </div>
-
-                  {/* Bottom Text */}
-                  <div>
-                    <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight mb-2 leading-tight">
-                      {step.title}
-                    </h3>
-                    <p className="text-neutral-300 text-xs sm:text-sm leading-relaxed font-medium">
-                      {step.desc}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-
-          {/* Indicator dots at the bottom */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-40">
-            {processSteps.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setActiveIndex(idx)}
-                aria-label={`Go to slide ${idx + 1}`}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                  activeIndex === idx ? 'bg-white w-6' : 'bg-white/30 hover:bg-white/50'
-                }`}
-              />
-            ))}
-          </div>
-
-        </div>
-      </div>
 
 
       {/* Tech Stack Heading */}
@@ -845,11 +572,11 @@ export default function About() {
         transition={{ duration: 0.85, ease: "easeOut" }}
         className="text-center z-10 mb-8"
       >
-        <h2 className="text-[#DC143C] font-extrabold text-4xl sm:text-5xl uppercase tracking-tight">
+        <h3 className="text-[#DC143C] font-extrabold text-4xl sm:text-5xl uppercase tracking-tight">
           OUR TECH STACK
-        </h2>
+        </h3>
         <p className="text-neutral-500 text-xs sm:text-sm uppercase tracking-widest mt-2">
-          Hover to pause rotation • Click to inspect
+          Click to inspect
         </p>
       </motion.div>
 
@@ -876,6 +603,10 @@ export default function About() {
                     alt={card.name} 
                     className={`tech-icon ${card.invert ? 'invert-icon' : ''}`}
                     draggable="false"
+                    width="48"
+                    height="48"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <h2 className="title">{card.name}</h2>

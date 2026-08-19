@@ -229,7 +229,7 @@ export default function Pricing() {
   return (
     <section 
       id="pricing" 
-      className="w-full bg-white text-black py-24 md:py-32 px-6 md:px-12 lg:px-24 select-none relative overflow-hidden"
+      className="curved-section w-full bg-black text-white py-24 md:py-32 px-6 md:px-12 lg:px-24 select-none relative overflow-hidden"
     >
       {/* Red Ambient Blurs */}
       <div className="absolute top-1/4 right-0 w-96 h-96 rounded-full bg-[#DC143C]/3 blur-[150px] pointer-events-none" />
@@ -241,8 +241,8 @@ export default function Pricing() {
           <span className="text-[#DC143C] font-semibold tracking-wider text-sm uppercase block mb-3">
             Pricing
           </span>
-          <h2 className="font-school font-extrabold text-5xl sm:text-6xl md:text-7xl uppercase leading-none tracking-tight text-neutral-950">
-            PRICING — PLANS
+          <h2 className="font-school font-extrabold text-5xl sm:text-6xl md:text-7xl uppercase leading-none tracking-tight text-white">
+            Our Pricing Plans
           </h2>
           <p className="text-neutral-500 font-semibold mt-4 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
             Choose the perfect category to elevate your brand presence and scale your engineering capabilities.
@@ -332,9 +332,7 @@ export default function Pricing() {
 
                     {/* CTA Button */}
                     <a
-                      href={getWhatsAppLink(plan.name, serviceName)}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="#contact"
                       className="w-full rounded-2xl bg-white py-4 font-extrabold text-sm sm:text-base text-black hover:bg-neutral-200 transition uppercase tracking-wider flex items-center justify-center gap-2 group/btn"
                     >
                       {plan.price === "Custom" ? "Get Custom Quote" : `Choose ${plan.name}`}
@@ -386,9 +384,7 @@ export default function Pricing() {
 
                     {/* CTA Button */}
                     <a
-                      href={getWhatsAppLink(plan.name, serviceName)}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="#contact"
                       className="w-full rounded-2xl bg-[#DC143C] py-3.5 font-bold text-xs sm:text-sm text-white hover:bg-[#b01030] transition uppercase tracking-wider flex items-center justify-center gap-2 group/btn"
                     >
                       {plan.price === "Custom" ? "Get Custom Quote" : `Choose ${plan.name}`}

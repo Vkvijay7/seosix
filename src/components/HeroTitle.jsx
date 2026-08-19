@@ -83,14 +83,14 @@ export default function HeroTitle({ hoveredText = "SEOSIX" }) {
             transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
           >
             {/* Displayed in text-[#f1ff0a] as requested */}
-            <h1 className={`font-thunder text-[#f1ff0a] ${sizeClass} leading-none font-normal uppercase text-center flex justify-center items-center flex-nowrap whitespace-nowrap gap-[0.06em] w-full max-w-full`}>
+            <h2 className={`font-thunder text-[#f1ff0a] ${sizeClass} leading-none font-normal uppercase text-center flex justify-center items-center flex-nowrap whitespace-nowrap gap-[0.06em] w-full max-w-full`}>
               {hoveredText.split(" ").map((word, wordIdx) => (
                 <React.Fragment key={wordIdx}>
                   {wordIdx > 0 && <span className="inline-block w-[0.22em]" />}
                   <span className="inline-block origin-bottom scale-y-[1.3]">{word}</span>
                 </React.Fragment>
               ))}
-            </h1>
+            </h2>
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import './PillNav.css';
 
@@ -23,6 +23,44 @@ const PillNav = ({
   const logoTweenRef = useRef(null);
   const navItemsRef = useRef(null);
   const logoRef = useRef(null);
+
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+    let accumulatedScroll = 0;
+    const threshold = 15; // minimum scroll distance to trigger state change
+
+    const updateScrollDirection = () => {
+      const scrollY = window.scrollY;
+      const diff = scrollY - lastScrollY;
+      
+      // If we scroll to the very top, always expand
+      if (scrollY <= 30) {
+        setIsCollapsed(false);
+        accumulatedScroll = 0;
+      } else {
+        // Accumulate scroll distance in the same direction
+        if ((diff > 0 && accumulatedScroll < 0) || (diff < 0 && accumulatedScroll > 0)) {
+          accumulatedScroll = 0; // reset if direction changed
+        }
+        accumulatedScroll += diff;
+
+        if (accumulatedScroll > threshold) {
+          setIsCollapsed(true);
+          accumulatedScroll = 0;
+        } else if (accumulatedScroll < -threshold) {
+          setIsCollapsed(false);
+          accumulatedScroll = 0;
+        }
+      }
+
+      lastScrollY = scrollY;
+    };
+
+    window.addEventListener('scroll', updateScrollDirection, { passive: true });
+    return () => window.removeEventListener('scroll', updateScrollDirection);
+  }, []);
 
   useEffect(() => {
     const layout = () => {
@@ -148,12 +186,14 @@ const PillNav = ({
     ['--base']: baseColor,
     ['--pill-bg']: pillColor,
     ['--hover-text']: hoveredPillTextColor,
-    ['--pill-text']: resolvedPillTextColor
+    ['--pill-text']: resolvedPillTextColor,
+    ['--text']: '#1B1B1B',
+    ['--border']: 'rgba(0, 0, 0, 0.06)'
   };
 
   return (
     <div className="pill-nav-container">
-      <nav className={`pill-nav ${className}`} aria-label="Primary" style={cssVars}>
+      <nav className={`pill-nav ${className} ${isCollapsed ? 'collapsed' : ''}`} aria-label="Primary" style={cssVars}>
         <a
           className="pill-logo"
           href={items?.[0]?.href || '#home'}
@@ -163,7 +203,7 @@ const PillNav = ({
             logoRef.current = el;
           }}
         >
-          <img src={logo} alt={logoAlt} ref={logoImgRef} />
+          <img src={logo} alt={logoAlt} ref={logoImgRef} width="32" height="32" />
         </a>
 
         <div className="pill-nav-items desktop-only" ref={navItemsRef}>
@@ -195,6 +235,11 @@ const PillNav = ({
               </li>
             ))}
           </ul>
+        </div>
+
+        <div className="pill-status-badge">
+          <span className="pill-status-text">Available for work</span>
+          <span className="pill-status-dot" />
         </div>
       </nav>
     </div>

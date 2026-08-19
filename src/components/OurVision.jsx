@@ -3,17 +3,17 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const visionTexts = [
-  "Built Different",
-  "Innovate Always",
-  "Design With Purpose",
-  "Think Beyond Limits",
-  "Create The Future"
+  "Engineered Differently",
+  "Continuous Innovation",
+  "Design with Precision",
+  "Expand Technical Limits",
+  "Architect the Future"
 ];
 
 // Split text into individual character spans for GSAP animation
 function SplitText({ text, textRef }) {
   return (
-    <h2
+    <h3
       ref={textRef}
       className="vision-text absolute inset-0 flex items-center justify-center"
       style={{ fontFamily: 'var(--font-school)' }}
@@ -24,21 +24,21 @@ function SplitText({ text, textRef }) {
             {word.split('').map((char, cIdx) => (
               <span
                 key={`${wIdx}-${cIdx}`}
-                className="vision-char inline-block text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black uppercase text-[#DC143C] will-change-transform"
-                style={{ lineHeight: 1 }}
+                className="vision-char inline-block text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black uppercase text-white will-change-transform"
+                style={{ lineHeight: 1, color: '#ffffff' }}
               >
                 {char}
               </span>
             ))}
             {wIdx < text.split(' ').length - 1 && (
-              <span className="vision-char inline-block text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black uppercase text-[#DC143C]" style={{ lineHeight: 1, width: '0.3em' }}>
+              <span className="vision-char inline-block text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black uppercase text-white" style={{ lineHeight: 1, width: '0.3em', color: '#ffffff' }}>
                 &nbsp;
               </span>
             )}
           </span>
         ))}
       </span>
-    </h2>
+    </h3>
   );
 }
 
@@ -118,17 +118,17 @@ function OurVision() {
     <section
       id="vision"
       ref={sectionRef}
-      className="relative w-full h-screen bg-[#1B1B1B] overflow-hidden"
+      className="curved-section relative w-full h-screen bg-[#1B1B1B] overflow-hidden"
     >
       {/* Section Label */}
-      <div className="absolute top-8 left-0 right-0 z-10 flex justify-center">
-        <span
-          className="text-xs font-semibold tracking-[4px] text-white/30 uppercase italic"
-          style={{ fontFamily: 'var(--font-custom)' }}
+      <header className="absolute top-[calc(2rem+var(--curve-height))] left-0 right-0 z-30 flex justify-center pointer-events-none">
+        <h2
+          className="vision-label text-xs font-semibold tracking-[4px] text-white uppercase italic"
+          style={{ fontFamily: 'var(--font-custom)', color: '#ffffff' }}
         >
-          (Our Vision)
-        </span>
-      </div>
+          Our Vision
+        </h2>
+      </header>
 
       {/* Vision Texts — stacked absolutely, centered */}
       <div className="relative w-full h-full">

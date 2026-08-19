@@ -149,76 +149,122 @@ const services = [
   {
     title: "Web Development",
     tag: "Engineering",
-    hook: "Modern, responsive websites that engage users and drive conversions.",
+    hook: "Custom website designer and web developer near me solutions to construct high-performance web stores in Dindigul, Chennai, and Coimbatore.",
     techs: ['html', 'css', 'js', 'react', 'node', 'next'],
     techNames: ['HTML5', 'CSS3', 'JavaScript', 'React', 'Node.js', 'Next.js'],
     bullets: [
-      "High-performance, scalable architectures",
-      "Seamless frontend to backend integration",
-      "Modern UI/UX with lightning-fast speeds"
+      "High-performance modular architectures using React and Next.js",
+      "Custom web store development and scalable database integrations",
+      "Fluid user interfaces with optimized, lightning-fast loading speeds"
     ]
   },
   {
     title: "SEO Optimization",
     tag: "Visibility",
-    hook: "Search visibility strategies that put your brand in front of the right audience.",
+    hook: "Strategic technical SEO audit planning, search console setup, and keyword tracking to rank your brand for high-intent search terms.",
     techs: ['analytics', 'pagespeed', 'semrush'],
     techNames: ['Google Analytics', 'PageSpeed', 'SEMrush'],
     bullets: [
-      "Search engine visibility & organic growth",
-      "In-depth technical audits & keyword strategies",
-      "Optimized performance & page load speeds"
+      "Detailed SEO audits, competitor tracking, and keyword targeting",
+      "Search Console setup, custom sitemaps, and indexing optimizations",
+      "Core Web Vitals configuration for maximum search crawl efficiency"
     ]
   },
   {
     title: "Video Editing",
     tag: "Creative",
-    hook: "Cinematic storytelling that captivates audiences and elevates your brand.",
+    hook: "Premium video editor services for YouTube and social media, incorporating VN/CapCut styles and advanced AI video tools.",
     techs: ['premiere', 'ae', 'davinci'],
     techNames: ['Premiere Pro', 'After Effects', 'DaVinci Resolve'],
     bullets: [
-      "Cinematic visual storytelling & high engagement",
-      "Short-form content optimized for social media",
-      "Premium sound design & post-production effects"
+      "VN and CapCut custom social media pacing and viewer-retention grading",
+      "High-end AI video editor enhancements and audio spatial engineering",
+      "Professional post-production for YouTube channels and commercial ads"
     ]
   },
   {
     title: "App Development",
     tag: "Mobile",
-    hook: "Stunning native & cross-platform apps built for scale and delight.",
+    hook: "Bespoke iOS and Android mobile ecosystems and app developer near me solutions crafted to deliver premium performance in Dindigul and globally.",
     techs: ['swift', 'kotlin', 'flutter', 'firebase'],
     techNames: ['Swift', 'Kotlin', 'Flutter', 'Firebase'],
     bullets: [
-      "Stunning native & cross-platform mobile apps",
-      "Intuitive UX with secure, robust architectures",
-      "Seamless App Store & Play Store deployment"
+      "Cross-platform deployments using Flutter and native Swift/Kotlin",
+      "Secure cloud sync, offline utility, and modern authentication schemas",
+      "End-to-end Store optimization and release management"
     ]
   },
   {
     title: "AI Solutions",
     tag: "Intelligence",
-    hook: "Smart automation and machine learning that transform how you work.",
+    hook: "State-of-the-art AI prompt engineering, Claude/Gemini optimization, and bespoke cognitive agents built using LLM best practices.",
     techs: ['python', 'pytorch', 'openai'],
     techNames: ['Python', 'PyTorch', 'OpenAI'],
     bullets: [
-      "Smart workflow automation & model integration",
-      "Custom LLMs, agents, & machine learning",
-      "Advanced data analysis & smart algorithms"
+      "AI prompt engineering and parameter tuning for Claude, Gemini, and GPT-4",
+      "Intelligent workflows and custom cognitive agents to automate operations",
+      "Pytorch model orchestration and structured pipeline integration"
     ]
   },
   {
     title: "UI/UX Design",
     tag: "Product Design",
-    hook: "Immersive interfaces and design systems that users love to interact with.",
+    hook: "Premium digital design systems and conversion-optimized wireframes created by expert website designers.",
     techs: ['figma', 'framer'],
     techNames: ['Figma', 'Framer'],
     bullets: [
-      "Immersive interfaces & interactive flows",
-      "Cohesive, scalable digital design systems",
-      "Conversion-optimized premium user experiences"
+      "Human-centric wireframes and custom interactive user flows",
+      "Standardized Figma token systems, components, and interactive prototypes",
+      "Bespoke layouts tailored for local businesses in Chennai, Coimbatore, and globally"
     ]
   }
 ];
+
+// Helper to render the active service's details card cleanly
+const renderServiceDetails = (service, isMobile = false, customTechCardsRef = null) => {
+  return (
+    <div className={`${isMobile ? 'mt-4 pb-2' : ''}`}>
+      {/* Tag */}
+      <div className="mb-4">
+        <span className="inline-block text-xs font-bold tracking-[3px] text-[#DC143C] uppercase bg-[#DC143C]/8 px-4 py-2 rounded-full" style={{ fontFamily: 'var(--font-custom)' }}>
+          {service.tag}
+        </span>
+      </div>
+
+      {/* Hook Description */}
+      <p className="text-[#1B1B1B]/70 text-sm md:text-lg font-medium mb-4 max-w-md leading-relaxed" style={{ fontFamily: 'var(--font-custom)' }}>
+        {service.hook}
+      </p>
+
+      {/* Tech Cards Grid */}
+      <div ref={customTechCardsRef} className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-4">
+        {service.techs.map((techKey, idx) => (
+          <div
+            key={techKey}
+            className="service-tech-card group/card bg-white border border-[#1B1B1B]/8 rounded-xl p-3 flex flex-col items-center gap-2 hover:border-[#DC143C]/30 hover:shadow-lg hover:shadow-[#DC143C]/5 transition-all duration-300 cursor-default"
+          >
+            <div className="w-10 h-10 flex items-center justify-center bg-[#FFF8E7] rounded-lg group-hover/card:bg-[#DC143C]/5 transition-colors duration-300">
+              {TechIcons[techKey]}
+            </div>
+            <span className="text-[10px] font-bold text-[#1B1B1B] tracking-wide uppercase text-center" style={{ fontFamily: 'var(--font-custom)' }}>
+              {service.techNames[idx]}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Bullets */}
+      <ul className="space-y-2.5">
+        {service.bullets.map((b, i) => (
+          <li key={i} className="flex items-start gap-2 text-[#1B1B1B]/60 text-xs md:text-sm font-medium" style={{ fontFamily: 'var(--font-custom)' }}>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#DC143C] mt-1.5 flex-shrink-0"></span>
+            {b}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 function Services() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -241,6 +287,7 @@ function Services() {
         end: `+=${totalServices * 100}%`,
         pin: true,
         scrub: true,
+        refreshPriority: 8,
         onUpdate: (self) => {
           const newIndex = Math.min(
             Math.floor(self.progress * totalServices),
@@ -298,7 +345,7 @@ function Services() {
   const active = services[activeIndex];
 
   return (
-    <section id="services" ref={sectionRef} className="relative bg-[#FFF8E7] overflow-hidden h-screen">
+    <section id="services" ref={sectionRef} className="curved-section relative bg-[#FFF8E7] overflow-hidden h-screen">
       {/* Section Header */}
       <div className="w-full px-6 md:px-16 pt-20 pb-6 flex items-center justify-between">
         <span className="text-xs font-semibold tracking-[3px] text-[#1B1B1B]/40 uppercase font-custom">(Services)</span>
@@ -353,6 +400,13 @@ function Services() {
                 </h2>
               </div>
 
+              {/* Accordion view for Mobile only */}
+              {activeIndex === index && (
+                <div className="md:hidden mt-2 pb-4 pt-2 border-t border-[#1B1B1B]/10">
+                  {renderServiceDetails(service, true)}
+                </div>
+              )}
+
               {/* Separator line */}
               {index < services.length - 1 && (
                 <div className={`h-px transition-colors duration-500 ${
@@ -363,47 +417,10 @@ function Services() {
           ))}
         </div>
 
-        {/* Right Column — Content Card */}
-        <div className="w-full md:w-[55%] flex flex-col justify-center md:pl-12 lg:pl-20">
+        {/* Right Column — Content Card (Desktop Only) */}
+        <div className="hidden md:flex w-full md:w-[55%] flex-col justify-center md:pl-12 lg:pl-20">
           <div ref={contentRef}>
-            {/* Tag */}
-            <div className="mb-6">
-              <span className="inline-block text-xs font-bold tracking-[3px] text-[#DC143C] uppercase bg-[#DC143C]/8 px-4 py-2 rounded-full" style={{ fontFamily: 'var(--font-custom)' }}>
-                {active.tag}
-              </span>
-            </div>
-
-            {/* Hook Description */}
-            <p className="text-[#1B1B1B]/70 text-base md:text-lg font-medium mb-8 max-w-md leading-relaxed" style={{ fontFamily: 'var(--font-custom)' }}>
-              {active.hook}
-            </p>
-
-            {/* Tech Cards Grid */}
-            <div ref={techCardsRef} className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
-              {active.techs.map((techKey, idx) => (
-                <div
-                  key={techKey}
-                  className="service-tech-card group/card bg-white border border-[#1B1B1B]/8 rounded-2xl p-4 flex flex-col items-center gap-3 hover:border-[#DC143C]/30 hover:shadow-lg hover:shadow-[#DC143C]/5 transition-all duration-300 cursor-default"
-                >
-                  <div className="w-12 h-12 flex items-center justify-center bg-[#FFF8E7] rounded-xl group-hover/card:bg-[#DC143C]/5 transition-colors duration-300">
-                    {TechIcons[techKey]}
-                  </div>
-                  <span className="text-xs font-bold text-[#1B1B1B] tracking-wide uppercase" style={{ fontFamily: 'var(--font-custom)' }}>
-                    {active.techNames[idx]}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            {/* Bullets */}
-            <ul className="space-y-3">
-              {active.bullets.map((b, i) => (
-                <li key={i} className="flex items-start gap-3 text-[#1B1B1B]/60 text-sm font-medium" style={{ fontFamily: 'var(--font-custom)' }}>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#DC143C] mt-1.5 flex-shrink-0"></span>
-                  {b}
-                </li>
-              ))}
-            </ul>
+            {renderServiceDetails(active, false, techCardsRef)}
           </div>
         </div>
       </div>

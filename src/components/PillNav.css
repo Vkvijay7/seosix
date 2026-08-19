@@ -9,8 +9,11 @@
 @media (max-width: 768px) {
   .pill-nav-container {
     width: 100%;
-    left: 0;
-    display: none;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
   }
 }
 
@@ -23,14 +26,21 @@
   display: flex;
   align-items: center;
   box-sizing: border-box;
+  transition: background-color 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+              padding 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+              gap 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  gap: 8px;
 }
 
 @media (max-width: 768px) {
   .pill-nav {
-    width: 100%;
-    justify-content: space-between;
-    padding: 0 1rem;
-    background: transparent;
+    display: none !important; /* Hide expanded navbar on mobile */
+    pointer-events: auto;
+  }
+
+  .pill-nav.collapsed {
+    display: flex !important; /* Show collapsed badge on mobile */
   }
 }
 
@@ -41,7 +51,13 @@
   height: var(--nav-h);
   background: var(--base, #000);
   border-radius: 9999px;
-  transition: background-color 0.5s ease;
+  max-width: 850px;
+  opacity: 1;
+  transition: background-color 0.5s ease,
+              max-width 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+              opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              padding 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+              margin 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .pill-logo {
@@ -54,7 +70,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease, width 0.5s ease, height 0.5s ease;
 }
 
 .pill-logo img {
@@ -241,4 +257,86 @@
   cursor: pointer;
   background-color: var(--base);
   color: var(--hover-text, #fff);
+}
+
+.pill-nav.collapsed {
+  background: var(--base, #000000) !important;
+  border-radius: 9999px;
+  padding: 3px;
+  padding-right: 18px; /* Extra padding on the right for balance */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), 0 0 0 1px var(--border, rgba(255, 255, 255, 0.08)); /* Sleek dynamic shadow and border */
+  gap: 12px;
+  transition: background-color 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+              padding 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+              gap 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.pill-nav.collapsed .pill-logo {
+  background: transparent !important;
+}
+
+.pill-nav.collapsed .pill-nav-items {
+  max-width: 0 !important;
+  opacity: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  pointer-events: none;
+}
+
+
+
+/* Status Badge */
+.pill-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: max-width 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+              opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.pill-nav.collapsed .pill-status-badge {
+  max-width: 250px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pill-status-text {
+  color: #DC143C; /* Brand crimson red text */
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Alegreya Sans SC', sans-serif;
+}
+
+/* Glowing Red/White Status Dot */
+.pill-status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #DC143C; /* Brand crimson red */
+  border-radius: 50%;
+  box-shadow: 0 0 10px #DC143C, 0 0 20px rgba(255, 255, 255, 0.6);
+  animation: status-pulse 2s infinite ease-in-out;
+  display: inline-block;
+}
+
+@keyframes status-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+    background-color: #DC143C;
+    box-shadow: 0 0 8px #DC143C, 0 0 15px rgba(255, 255, 255, 0.4);
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 1;
+    background-color: #ffffff;
+    box-shadow: 0 0 12px #ffffff, 0 0 25px rgba(220, 20, 60, 0.8);
+  }
 }

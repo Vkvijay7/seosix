@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import './StaggeredMenu.css';
 
@@ -41,6 +41,49 @@ export const StaggeredMenu = ({
   const toggleBtnRef = useRef(null);
   const busyRef = useRef(false);
   const itemEntranceTweenRef = useRef(null);
+  const prevColorRef = useRef(menuButtonColor);
+
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+    let accumulatedScroll = 0;
+    const threshold = 15;
+
+    const updateScrollDirection = () => {
+      // If the menu is open, do not collapse the header
+      if (openRef.current || open) {
+        setIsCollapsed(false);
+        return;
+      }
+
+      const scrollY = window.scrollY;
+      const diff = scrollY - lastScrollY;
+      
+      if (scrollY <= 30) {
+        setIsCollapsed(false);
+        accumulatedScroll = 0;
+      } else {
+        if ((diff > 0 && accumulatedScroll < 0) || (diff < 0 && accumulatedScroll > 0)) {
+          accumulatedScroll = 0;
+        }
+        accumulatedScroll += diff;
+
+        if (accumulatedScroll > threshold) {
+          setIsCollapsed(true);
+          accumulatedScroll = 0;
+        } else if (accumulatedScroll < -threshold) {
+          setIsCollapsed(false);
+          accumulatedScroll = 0;
+        }
+      }
+
+      lastScrollY = scrollY;
+    };
+
+    window.addEventListener('scroll', updateScrollDirection, { passive: true });
+    return () => window.removeEventListener('scroll', updateScrollDirection);
+  }, [open]);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -63,8 +106,8 @@ export const StaggeredMenu = ({
       if (preContainer) {
         gsap.set(preContainer, { xPercent: 0, opacity: 1 });
       }
-      gsap.set(plusH, { transformOrigin: '50% 50%', rotate: 0 });
-      gsap.set(plusV, { transformOrigin: '50% 50%', rotate: 90 });
+      gsap.set(plusH, { transformOrigin: '50% 50%', xPercent: -50, yPercent: -50, rotate: 0 });
+      gsap.set(plusV, { transformOrigin: '50% 50%', xPercent: -50, yPercent: -50, rotate: 90 });
       gsap.set(icon, { rotate: 0, transformOrigin: '50% 50%' });
       gsap.set(textInner, { yPercent: 0 });
       if (toggleBtnRef.current) gsap.set(toggleBtnRef.current, { color: menuButtonColor });
@@ -250,7 +293,10 @@ export const StaggeredMenu = ({
       if (!btn) return;
       colorTweenRef.current?.kill();
       if (changeMenuColorOnOpen) {
-        const targetColor = opening ? openMenuButtonColor : menuButtonColor;
+        if (opening) {
+          prevColorRef.current = btn.style.color || window.getComputedStyle(btn).color || menuButtonColor;
+        }
+        const targetColor = opening ? openMenuButtonColor : prevColorRef.current;
         colorTweenRef.current = gsap.to(btn, {
           color: targetColor,
           delay: 0.18,
@@ -267,8 +313,14 @@ export const StaggeredMenu = ({
   React.useEffect(() => {
     if (toggleBtnRef.current) {
       if (changeMenuColorOnOpen) {
-        const targetColor = openRef.current ? openMenuButtonColor : menuButtonColor;
-        gsap.set(toggleBtnRef.current, { color: targetColor });
+        if (openRef.current) {
+          gsap.set(toggleBtnRef.current, { color: openMenuButtonColor });
+        } else {
+          // If closed, don't overwrite any inline style color dynamically set by ScrollTrigger
+          if (!toggleBtnRef.current.style.color) {
+            gsap.set(toggleBtnRef.current, { color: menuButtonColor });
+          }
+        }
       } else {
         gsap.set(toggleBtnRef.current, { color: menuButtonColor });
       }
@@ -373,7 +425,7 @@ export const StaggeredMenu = ({
           return arr.map((c, i) => <div key={i} className="sm-prelayer" style={{ background: c }} />);
         })()}
       </div>
-      <header className="staggered-menu-header" aria-label="Main navigation header">
+      <header className={`staggered-menu-header ${isCollapsed ? 'collapsed' : ''}`} aria-label="Main navigation header">
         <div className="sm-logo" aria-label="Logo">
           <img
             src={logoUrl}

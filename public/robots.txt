@@ -1,0 +1,11 @@
+# User-Agent rules for crawler bots
+User-agent: *
+Allow: /
+
+# Prevent crawling of build metadata or system generated files
+Disallow: /dist/
+Disallow: /.firebase/
+Disallow: /node_modules/
+
+# XML Sitemap Location (Change the URL once you deploy to your custom domain)
+Sitemap: https://www.seosixofficial.in/sitemap.xml
